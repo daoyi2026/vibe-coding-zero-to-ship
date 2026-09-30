@@ -34,7 +34,7 @@ jobs:
 
   live-routing-evals:
     name: Live Codex routing evals
-    if: \${{ github.event_name == 'workflow_dispatch' && inputs.live_codex_evals }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.live_codex_evals }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -48,7 +48,7 @@ jobs:
 
       - name: Require short-lived Codex access token
         env:
-          CODEX_ACCESS_TOKEN: \${{ secrets.CODEX_ACCESS_TOKEN }}
+          CODEX_ACCESS_TOKEN: ${{ secrets.CODEX_ACCESS_TOKEN }}
         run: |
           if [ -z "$CODEX_ACCESS_TOKEN" ]; then
             echo "Missing repository secret CODEX_ACCESS_TOKEN."
@@ -63,5 +63,5 @@ jobs:
 
       - name: Run isolated routing evals
         env:
-          CODEX_ACCESS_TOKEN: \${{ secrets.CODEX_ACCESS_TOKEN }}
+          CODEX_ACCESS_TOKEN: ${{ secrets.CODEX_ACCESS_TOKEN }}
         run: node tests/run-codex-evals.mjs
