@@ -30,3 +30,20 @@ jobs:
         run: |
           bash -n scripts/install.sh
           bash scripts/install.sh --help
+
+      - name: Smoke-test safe installer behavior
+        run: |
+          temp_home="$(mktemp -d)"
+          trap 'rm -rf "$temp_home"' EXIT
+
+          HOME="$temp_home" VIBE_SKILL_SOURCE_DIR="$PWD" bash scripts/install.sh
+          test -f "$temp_home/.codex/skills/vibe-coding-zero-to-ship/SKILL.md"
+
+          set +e
+          HOME="$temp_home" VIBE_SKILL_SOURCE_DIR="$PWD" bash scripts/install.sh
+          second_status="$?"
+          set -e
+          test "$second_status" -eq 3
+
+          HOME="$temp_home" VIBE_SKILL_SOURCE_DIR="$PWD" bash scripts/install.sh --update
+          find "$temp_home/.codex/skills" -maxdepth 1 -type d -name 'vibe-coding-zero-to-ship.backup-*' | grep -q .
