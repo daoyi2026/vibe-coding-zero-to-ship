@@ -154,4 +154,4 @@ See `ACKNOWLEDGEMENTS.md` for projects and public workflows that informed the de
 
 ## License
 
-No license has been selected yet. Until a license is added, normal copyright rules apply.
+MIT. See [LICENSE](LICENSE).
