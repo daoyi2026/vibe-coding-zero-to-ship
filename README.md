@@ -1,5 +1,9 @@
 # vibe-coding-zero-to-ship
 
+[![Skill CI](https://github.com/daoyi2026/vibe-coding-zero-to-ship/actions/workflows/skill-ci.yml/badge.svg)](https://github.com/daoyi2026/vibe-coding-zero-to-ship/actions/workflows/skill-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Release candidate](https://img.shields.io/badge/release-v0.1.0--rc-blue)
+
 A beginner foundation layer for AI-assisted product building.
 
 This project is for people who can describe a product idea but may not yet know the software-development concepts that advanced coding agents often assume: Git, data persistence, databases, authentication, secrets, deployment, public/private visibility, product completeness, cost, and maintenance.
