@@ -1,6 +1,6 @@
 ---
 name: vibe-coding-zero-to-ship
-description: Use when a beginner or non-technical builder is making a real digital product and a missing foundation about persistence, version recovery, accounts and permissions, credentials, going online, cost, or product completeness materially affects the next decision. Stay inactive for ordinary UI/code edits, throwaway local prototypes, and cases where the user has already demonstrated the relevant understanding or safeguard.
+description: Guide non-technical builders through missing software-product foundations when those gaps affect the next decision: persistence, version recovery, accounts and permissions, secrets, deployment, cost, and launch readiness. Skip ordinary edits, harmless local prototypes, and concepts the user already understands.
 ---
 
 # Vibe Coding: Zero to Ship
