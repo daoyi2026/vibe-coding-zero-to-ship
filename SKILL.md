@@ -1,6 +1,6 @@
 ---
 name: vibe-coding-zero-to-ship
-description: Use when a non-technical or beginner AI builder is starting, modifying, publishing, or launching a digital product and a missing foundation about data, Git/recovery, users/auth, secrets, deployment, product completeness, cost, or maintenance could affect the next decision or create risk. Do not use for ordinary cosmetic or code edits with no relevant foundational gap.
+description: Use when a beginner or non-technical builder is making a real digital product and a missing foundation about persistence, version recovery, accounts and permissions, credentials, going online, cost, or product completeness materially affects the next decision. Stay inactive for ordinary UI/code edits, throwaway local prototypes, and cases where the user has already demonstrated the relevant understanding or safeguard.
 ---
 
 # Vibe Coding: Zero to Ship
