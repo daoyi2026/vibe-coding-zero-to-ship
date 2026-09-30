@@ -2,7 +2,7 @@
 
 [![Skill CI](https://github.com/daoyi2026/vibe-coding-zero-to-ship/actions/workflows/skill-ci.yml/badge.svg)](https://github.com/daoyi2026/vibe-coding-zero-to-ship/actions/workflows/skill-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Release candidate](https://img.shields.io/badge/release-v0.1.0--rc-blue)
+[![Release: v0.1.0](https://img.shields.io/badge/release-v0.1.0-blue)](https://github.com/daoyi2026/vibe-coding-zero-to-ship/releases/tag/v0.1.0)
 
 A beginner foundation layer for AI-assisted product building.
 
@@ -150,7 +150,7 @@ The negative cases matter: a foundation skill that explains Git every time someo
 
 ## Status
 
-Early working version. The first release is intentionally instruction-only: test routing, behavior, and safety coverage before adding scripts or more automation.
+**v0.1.0 is now publicly released.** The first release focuses on beginner foundations, safe routing, recovery, and a lightweight installation/testing workflow.
 
 ## Influences
 
