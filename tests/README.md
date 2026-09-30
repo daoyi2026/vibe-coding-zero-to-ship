@@ -33,13 +33,19 @@ Run only the three important negative controls:
 node tests/run-codex-evals.mjs 12 13 14
 ```
 
-## Authentication
+## Authentication and Plus accounts
 
-The temporary `CODEX_HOME` prevents normal user config and user-scoped skills from contaminating the routing test.
+The temporary `CODEX_HOME` prevents normal user config, user-scoped skills, and active-project settings from contaminating the routing test.
 
-The runner does not copy `auth.json` or any credential into the scratch directory. Authentication must therefore already be available through a supported non-file mechanism, such as a keychain-backed Codex session or `CODEX_ACCESS_TOKEN`.
+That strong isolation also means the runner deliberately does **not** reuse or copy the normal `~/.codex` authentication files.
 
-If authentication is unavailable, the Codex subprocess exits non-zero and the per-case stderr explains the failure.
+The default GitHub Actions workflow therefore runs **static validation only** and requires no OpenAI credential.
+
+For ChatGPT Business or Enterprise workspaces, a dedicated `CODEX_ACCESS_TOKEN` can be supplied manually to a compatible local/CI setup. Codex access tokens are not currently a ChatGPT Plus feature.
+
+If you use ChatGPT Plus, do not copy `auth.json` into a test directory just to make this harness work. Keep using the credential-free static suite until a deliberately isolated Plus-compatible live harness is configured.
+
+If a live run has no supported authentication path, Codex exits non-zero; that is an environment limitation, not a routing result.
 
 ## Artifacts
 
