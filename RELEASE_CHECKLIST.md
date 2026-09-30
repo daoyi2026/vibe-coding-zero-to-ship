@@ -35,5 +35,5 @@ The unchecked live-routing item is non-blocking for v0.1.0 because the release d
 
 - [x] `CHANGELOG.md` contains v0.1.0 entry.
 - [x] `RELEASE_NOTES_v0.1.0.md` prepared.
-- [ ] Create Git tag `v0.1.0`.
-- [ ] Create GitHub Release using `RELEASE_NOTES_v0.1.0.md`.
+- [x] Create Git tag `v0.1.0`.
+- [x] Create GitHub Release using `RELEASE_NOTES_v0.1.0.md`.
