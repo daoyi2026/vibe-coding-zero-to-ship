@@ -75,3 +75,27 @@ These are the most useful negative controls for tuning the frontmatter descripti
 Run the 15 prompts through an isolated Codex `exec --json` harness with only this skill mounted, capture whether the skill was actually invoked, and compare the trace with `tests/evals.csv`.
 
 Do not install the test skill into a real project's `.codex/skills` or the user's normal `~/.codex/skills` during that eval.
+
+
+## Second-pass changes
+
+After the routing pre-evaluation, the skill metadata was tightened to explicitly stay inactive for:
+
+- ordinary UI/code edits;
+- throwaway local prototypes without material risk;
+- cases where the user has already demonstrated the relevant understanding or safeguard.
+
+This targets the three borderline negative controls: 12, 13, and 14.
+
+A live Codex routing harness was also added at:
+
+- `tests/run-codex-evals.mjs`
+- `tests/README.md`
+
+The harness uses a temporary scratch project per case, a temporary `CODEX_HOME`, a repo-scoped copy of only this skill, and read-only sandbox mode. It does not install into the normal user skill directory or operate on an active project.
+
+### Environment limitation for this report
+
+The current isolated execution environment does not have the user's authenticated Codex CLI session, so a genuine 15-case Codex JSONL trace was not fabricated or reported as completed.
+
+The repository is now ready for that live trace in an authenticated isolated Codex environment.
