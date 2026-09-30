@@ -24,9 +24,9 @@ Use this before publishing a tagged release.
 
 - [x] Positive routing cases exist.
 - [x] Negative routing controls exist.
-- [x] Static validator passes.
+- [x] Static validator passes on the final release-candidate commit.
 - [x] Installer syntax check passes.
-- [x] Installer smoke test passes.
+- [x] Installer smoke test passes on the final release-candidate commit.
 - [ ] Live Codex routing traces completed in a deliberately authenticated isolated environment.
 
 The unchecked live-routing item is non-blocking for v0.1.0 because the release does not claim measured live routing accuracy.
