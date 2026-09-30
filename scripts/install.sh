@@ -92,16 +92,21 @@ TMP="$(mktemp -d)"
 cleanup() { rm -rf "$TMP"; }
 trap cleanup EXIT
 
-ARCHIVE="$TMP/skill.tar.gz"
-echo "Downloading skill source from GitHub..."
-curl --fail --location --silent --show-error "$REPO_ARCHIVE" --output "$ARCHIVE"
+if [[ -n "${VIBE_SKILL_SOURCE_DIR:-}" ]]; then
+  SOURCE="$VIBE_SKILL_SOURCE_DIR"
+else
+  ARCHIVE="$TMP/skill.tar.gz"
+  echo "Downloading skill source from GitHub..."
+  curl --fail --location --silent --show-error "$REPO_ARCHIVE" --output "$ARCHIVE"
 
-echo "Extracting..."
-tar -xzf "$ARCHIVE" -C "$TMP"
+  echo "Extracting..."
+  tar -xzf "$ARCHIVE" -C "$TMP"
 
-SOURCE="$(find "$TMP" -maxdepth 1 -type d -name "vibe-coding-zero-to-ship-*" | head -n 1)"
+  SOURCE="$(find "$TMP" -maxdepth 1 -type d -name "vibe-coding-zero-to-ship-*" | head -n 1)"
+fi
+
 if [[ -z "$SOURCE" || ! -f "$SOURCE/SKILL.md" ]]; then
-  echo "Downloaded archive does not contain the expected SKILL.md." >&2
+  echo "Skill source does not contain the expected SKILL.md." >&2
   exit 1
 fi
 
