@@ -25,3 +25,8 @@ jobs:
 
       - name: Validate skill bundle
         run: node tests/validate-structure.mjs
+
+      - name: Validate installer syntax
+        run: |
+          bash -n scripts/install.sh
+          bash scripts/install.sh --help
