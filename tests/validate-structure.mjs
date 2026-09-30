@@ -155,6 +155,63 @@ if (!existsSync(evalPath)) {
   }
 }
 
+
+const qualityRoutingPath = path.join(root, "tests", "quality-routing.csv");
+if (!existsSync(qualityRoutingPath)) {
+  fail("tests/quality-routing.csv is missing.");
+} else {
+  const rows = parseCsv(readFileSync(qualityRoutingPath, "utf8"));
+  if (rows.length < 2) {
+    fail("quality-routing.csv has no test rows.");
+  } else {
+    const header = rows[0];
+    const body = rows.slice(1);
+    const triggerIndex = header.indexOf("should_trigger");
+    const languageIndex = header.indexOf("language");
+    const riskIndex = header.indexOf("risk");
+
+    if (triggerIndex < 0 || languageIndex < 0 || riskIndex < 0) {
+      fail("quality-routing.csv is missing required columns.");
+    } else {
+      const positives = body.filter((row) => row[triggerIndex] === "true").length;
+      const negatives = body.filter((row) => row[triggerIndex] === "false").length;
+      const english = body.filter((row) => row[languageIndex] === "en").length;
+      const chinese = body.filter((row) => row[languageIndex] === "zh").length;
+      const highRiskPositives = body.filter(
+        (row) =>
+          row[triggerIndex] === "true" &&
+          (row[riskIndex] === "P2" || row[riskIndex] === "P3")
+      ).length;
+
+      if (body.length !== 40) {
+        fail("quality-routing.csv should contain exactly 40 v0.1 benchmark cases; found " + body.length);
+      }
+      if (positives !== 20 || negatives !== 20) {
+        fail("quality-routing.csv should contain 20 positive and 20 negative cases.");
+      }
+      if (english !== 20 || chinese !== 20) {
+        fail("quality-routing.csv should contain 20 English and 20 Chinese cases.");
+      }
+      if (highRiskPositives < 6) {
+        fail("quality-routing.csv needs enough P2/P3 positive controls.");
+      }
+
+      console.log(
+        "Quality routing cases:",
+        body.length,
+        "positive:",
+        positives,
+        "negative:",
+        negatives,
+        "en:",
+        english,
+        "zh:",
+        chinese
+      );
+    }
+  }
+}
+
 const secretPatterns = [
   ["OpenAI-style key", /\bsk-[A-Za-z0-9_-]{20,}\b/g],
   ["GitHub classic token", /\bghp_[A-Za-z0-9]{20,}\b/g],
