@@ -1,6 +1,6 @@
 ---
 name: vibe-coding-zero-to-ship
-description: Guide non-technical builders through missing software-product foundations when those gaps affect the next decision: persistence, version recovery, accounts and permissions, secrets, deployment, cost, and launch readiness. Skip ordinary edits, harmless local prototypes, and concepts the user already understands.
+description: Guide non-technical builders through missing software-product foundations only when a gap materially affects the next decision: persistence, recovery, accounts and permissions, secrets, deployment, cost, or launch readiness. Treat safeguards the user has already requested, completed, or verified as understood and do not re-teach them. Skip ordinary edits and harmless local prototypes. Still intervene for exposed/requested secrets and unresolved destructive production or user-data actions.
 ---
 
 # Vibe Coding: Zero to Ship
@@ -23,6 +23,10 @@ This skill is a **foundation and routing layer**, not a programming course. Keep
 ## Silence rule
 
 If the user already understands the relevant concept and there is no material risk, stay silent.
+
+If the user has already explicitly requested, completed, or verified the relevant safeguard, treat that safeguard as understood. Do not re-teach it or route into foundation material merely because the prompt contains words such as Git, RLS, auth, database, or public. Re-open the foundation only if the current change materially alters that safeguard or evidence shows it is not actually in place.
+
+This silence rule does not suppress active high-risk secret handling or an unresolved destructive-action gate.
 
 Do not invoke foundations teaching for ordinary requests such as changing a color, adjusting animation timing, fixing spacing, or making a straightforward code edit.
 
@@ -52,6 +56,8 @@ Higher project risk can require safeguards even when the user is technical.
 
 ## Routing
 
+Before routing, check whether the relevant safeguard has already been explicitly requested, completed, or verified. If it has, and the current task does not materially change it, do not route into foundation teaching for that topic.
+
 Read only the supporting files relevant to the current task.
 
 - New or vague product idea → `workflows/idea-to-mvp.md`
@@ -61,7 +67,7 @@ Read only the supporting files relevant to the current task.
 - Saving/syncing/user data/database/files → `references/data-basics.md` and when building it `workflows/add-data.md`
 - Significant change / recovery / Git / GitHub basics → `references/git-and-recovery.md`
 - Login/signup/users/private user data → `references/auth-and-users.md` and `workflows/add-users.md`
-- API key/token/password/credential → immediately read `references/secrets.md`
+- API key/token/password/credential → immediately read `references/secrets.md`, even when the user otherwise appears experienced or has prior safeguards in place
 - Real user information → `references/privacy.md`
 - Security-relevant feature → `references/security-routing.md`
 - Publishing code to GitHub → `workflows/publish-github.md`; if public, also `checklists/pre-public.md`
@@ -71,6 +77,12 @@ Read only the supporting files relevant to the current task.
 - Live product ownership/backup/returning later → `references/maintenance.md`
 - Irreversible or destructive action → `checklists/destructive-action.md`
 - P2/P3 release → `checklists/production-ready.md`
+
+## Application-data context
+
+When the user asks where "my data" is stored, whether it survives closing/reopening the app, or similar persistence questions, interpret "data" as the current product's application/user data by default. Inspect the app's actual data flow and persistence mechanism before answering.
+
+Do not answer with Codex transcripts, agent history, editor state, or development-tool storage unless the user explicitly asks about the tool itself.
 
 ## Beginner product minimums
 
@@ -98,6 +110,14 @@ Escalate before:
 - authentication or private user-data changes;
 - paid/usage-based services;
 - sensitive information handling.
+
+For destructive production or user-data actions, use a hard gate. Before deleting, overwriting, truncating, or destructively migrating production/user data:
+1. identify the exact scope of what will change;
+2. verify that a usable backup or recovery path actually exists;
+3. state the exact destructive action that would be performed;
+4. obtain explicit confirmation for that exact action.
+
+If backup/recovery cannot be verified, do not execute the destructive action. The user's initial request to delete or overwrite data is not, by itself, final confirmation after the risk and recovery state are known. Continuing the user's task never overrides this destructive-action gate.
 
 Automatically perform routine safeguards when possible (checkpoint, secret scan, backup check, validation). Ask the user only when a consequential decision remains.
 
