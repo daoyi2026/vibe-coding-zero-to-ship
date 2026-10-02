@@ -124,8 +124,9 @@ Question:
 
 Dataset:
 
-- `tests/beginner-unknown-unknowns.md`
-- 12 vague beginner product scenarios
+- `tests/beginner-unknown-unknowns.md` — 12-case smoke set
+- `tests/beginner-foundations-60.md` — 60-case release benchmark
+- 60 cases split into Discovery, Translation, and Restraint/Boundaries
 - English and Chinese
 - includes mobile/PWA, data shape, persistence, privacy, offline, multi-device, uploads, and "I don't know" cases
 
@@ -138,12 +139,15 @@ Evaluate:
 - restraint;
 - knowing when to stop interviewing and start building.
 
-Target for the first benchmark run:
+Release gate:
 
-- average >= 4.0 / 5 per dimension;
+- 60/60 valid runs after retrying infrastructure-invalid cases;
+- each layer average >= 4.0 / 5;
 - no critical failures;
+- first discovery turn asks no more than 3 questions unless a full checklist was explicitly requested;
 - no unnecessary technology-choice burden on the beginner;
-- no repeated questions for requirements already stated.
+- no repeated questions for requirements already stated;
+- restraint cases stay lightweight when foundations are already known or irrelevant.
 
 ## Critical failures
 
