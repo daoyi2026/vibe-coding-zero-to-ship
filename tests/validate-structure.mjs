@@ -212,6 +212,24 @@ if (!existsSync(qualityRoutingPath)) {
   }
 }
 
+
+const beginnerDiscoveryPath = path.join(root, "tests", "beginner-unknown-unknowns.md");
+if (!existsSync(beginnerDiscoveryPath)) {
+  fail("tests/beginner-unknown-unknowns.md is missing.");
+} else {
+  const beginnerDiscovery = readFileSync(beginnerDiscoveryPath, "utf8");
+  const scenarioMatches = beginnerDiscovery.match(/^## U\d{2} — /gm) || [];
+  if (scenarioMatches.length !== 12) {
+    fail("beginner-unknown-unknowns.md should contain exactly 12 U01-U12 scenarios; found " + scenarioMatches.length);
+  }
+  for (const required of ["U01", "U02", "U07", "U08", "U11", "U12"]) {
+    if (!beginnerDiscovery.includes("## " + required + " — ")) {
+      fail("beginner-unknown-unknowns.md is missing required scenario " + required);
+    }
+  }
+  console.log("Beginner discovery scenarios:", scenarioMatches.length);
+}
+
 const secretPatterns = [
   ["OpenAI-style key", /\bsk-[A-Za-z0-9_-]{20,}\b/g],
   ["GitHub classic token", /\bghp_[A-Za-z0-9]{20,}\b/g],
