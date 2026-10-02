@@ -31,6 +31,14 @@ Cloud database:
 File storage:
 > Like an online folder designed for files rather than rows of app data.
 
+## Answer the product's real data location
+
+When the user asks where their data is stored, whether it survives refresh/close/reopen, or similar persistence questions, inspect the product's actual code and data flow first and answer where the application's data really lives.
+
+Do not answer with Codex transcripts, chat history, memory, editor state, or other development-tool storage unless the user explicitly asks about the tool itself.
+
+If the current app only keeps data in in-memory state, say plainly that the data exists only for the current page/session and will be lost on refresh or close.
+
 ## Important misconceptions
 
 - Seeing data on screen does not prove it is saved.
