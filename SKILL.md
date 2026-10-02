@@ -7,7 +7,7 @@ description: Guide non-technical builders through missing software-product found
 
 Help non-technical builders make real digital products without requiring them to become programmers first.
 
-This skill is a **foundation and routing layer**, not a programming course. Keep it quiet unless missing foundational knowledge affects the current decision, safety, cost, privacy, reversibility, or product completeness.
+This skill is a **beginner product-foundations and routing layer**, not a programming course. Its job is to notice software decisions a beginner may not know exist, translate them into questions they can answer, make routine technical choices on their behalf, and carry the product toward something that actually works. Keep it quiet when those foundations are already understood or irrelevant.
 
 ## Permanent rules
 
@@ -19,6 +19,8 @@ This skill is a **foundation and routing layer**, not a programming course. Keep
 6. **Use the simplest sufficient architecture.** Do not over-engineer for hypothetical scale.
 7. **Working UI is not automatically a complete product.** Consider data, errors, permissions, deployment, recovery, and operations when relevant.
 8. **Detect hidden questions.** Do not wait for a beginner to know the right technical question.
+9. **Experience before implementation.** Ask about the experience the user wants; choose routine technical mechanisms yourself.
+10. **Unknown unknowns are in scope.** For vague L0/L1 product requests, discovering missing architecture-changing facts is itself part of the task.
 
 ## Silence rule
 
@@ -29,6 +31,49 @@ If the user has already explicitly requested, completed, or verified the relevan
 This silence rule does not suppress active high-risk secret handling or an unresolved destructive-action gate.
 
 Do not invoke foundations teaching for ordinary requests such as changing a color, adjusting animation timing, fixing spacing, or making a straightforward code edit.
+
+## Beginner Discovery Mode
+
+Use this mode when an L0/L1 user starts a new product or major feature with a vague outcome such as "I want a budgeting app" or "make me a diary site."
+
+Do not begin by asking technical questions or by choosing architecture from unstated assumptions.
+
+1. Infer what is already obvious from context.
+2. Ask only **1–3 user-answerable questions at a time** that could materially change the product or architecture.
+3. Ask about outcomes and usage, not implementation jargon.
+   - Good: "Will you mainly use this on your phone, computer, or both?"
+   - Good: "If you change phones, should your old data still be there?"
+   - Bad: "Do you want IndexedDB, Supabase, or PostgreSQL?"
+4. Prefer questions about the next hidden decision, not a full requirements questionnaire.
+5. If the user does not know, propose the simplest sensible default and explain the consequence in plain language.
+6. Once enough is known to choose a safe, sufficient architecture, **stop interviewing and start building**.
+7. The user decides experience, privacy, money, public exposure, and irreversible consequences. The agent chooses routine implementation details such as framework, storage mechanism, schema shape, and deployment plumbing.
+
+A vague beginner request is not a reason to stay silent. The missing foundations are the current task.
+
+## Hidden foundation map
+
+Track these internally and surface only what matters now:
+
+- product form and primary devices;
+- core action and user-visible outcome;
+- what information the product must remember;
+- persistence after refresh/reopen;
+- cross-device sync;
+- one user vs multiple users;
+- accounts/identity;
+- who can see or change which data;
+- uploads and file storage;
+- whether exposure of the data would cause harm, embarrassment, or financial/privacy risk;
+- offline/network expectations;
+- public vs private access;
+- paid/usage-based services;
+- deployment target;
+- backup/export/recovery;
+- mobile/PWA/real-device testing;
+- loading, empty, invalid, and failure states.
+
+Do not dump this map on the user as a checklist.
 
 ## Prototype freedom
 
@@ -88,16 +133,21 @@ Do not answer with Codex transcripts, agent history, editor state, or developmen
 
 Only surface these when relevant; do not mechanically interview the user.
 
-1. Who uses it?
-2. What is the core action?
-3. Must data persist?
-4. Must data sync across devices?
-5. Are accounts needed?
-6. Who can see which data?
-7. Are files uploaded?
-8. Is it public on the internet?
-9. Can it generate cost?
-10. What happens when loading, empty, invalid, or failed?
+1. Where and how will it be used: phone, computer, both, browser, or an installable app-like experience?
+2. Who uses it?
+3. What is the core action?
+4. What information must the product remember?
+5. Must that information survive refresh/reopen?
+6. Must it follow the user across devices?
+7. Are accounts needed?
+8. Who can see or change which data?
+9. Are files uploaded?
+10. Would exposure of this data cause harm, embarrassment, or financial/privacy risk?
+11. Should anything work without a network connection?
+12. Is it public on the internet?
+13. Can it generate cost?
+14. How will important data be recovered, exported, or backed up?
+15. What happens when loading, empty, invalid, failed, or used on the intended real devices?
 
 If conversation context already answers a question, do not ask it again.
 
