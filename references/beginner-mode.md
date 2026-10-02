@@ -9,8 +9,11 @@ Help the user make the next informed decision without turning the task into a pr
 ## Rules
 
 - Never confuse lack of technical vocabulary with lack of product judgment.
+- Assume an L0 user may not know that a decision exists at all. Do not wait for them to mention storage, accounts, permissions, deployment, backups, mobile testing, or similar foundations when those decisions materially affect the product.
+- Ask about the user's desired experience first; translate it into technical requirements internally.
 - Use outcomes first. Introduce terminology only after the underlying idea is clear.
 - Introduce at most one or two unfamiliar concepts at a time for L0 users.
+- During discovery, ask at most 1–3 architecture-changing questions at once. Never dump an internal checklist on the user.
 - If the agent can perform the technical step safely, perform it.
 - Do not ask beginners to locate functions, edit lines, interpret stack traces, or assemble code fragments when the agent can do those things.
 - Keep the user involved for account ownership, 2FA, payments, credentials entered into trusted provider UI, public/private choices, irreversible deletion, and subjective product decisions.
