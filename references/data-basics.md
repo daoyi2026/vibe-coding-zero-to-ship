@@ -4,14 +4,23 @@ Start from what the user expects data to do, not from a preferred database techn
 
 ## Decision ladder
 
-Ask or infer only what matters:
+Before choosing where data lives, determine **what the product actually needs to remember**. A beginner may not think of this as data design.
 
-1. Must the data survive a page refresh?
-2. Must it survive closing and reopening on the same device?
-3. Must it appear on another device?
-4. Do multiple users need separate/private data?
-5. Are large files such as images, audio, video, or documents involved?
-6. Is the data sensitive or important enough to require stronger protection or backup?
+Ask in product language, for example:
+
+> For each expense, what do you want to keep: amount, date, category, note, receipt photo, or something else?
+
+Then ask or infer only what matters:
+
+1. What information must be remembered?
+2. Must the data survive a page refresh?
+3. Must it survive closing and reopening on the same device?
+4. Must it appear on another device?
+5. Do multiple users need separate/private data?
+6. Are large files such as images, audio, video, or documents involved?
+7. Would exposure of the data cause privacy, financial, personal, or reputational harm?
+8. Does the user expect it to work while offline?
+9. Is the data important enough to need export, backup, or recovery?
 
 ## Common options
 
