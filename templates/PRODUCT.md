@@ -9,6 +9,26 @@ Who is the first intended user?
 ## Core action
 What is the one action that makes the first version useful?
 
+## Experience & foundation decisions
+Record only decisions already learned from the user or safely inferred. Do not turn this into a questionnaire.
+
+Primary device / product form:
+Users: one person / multiple people / roles:
+Information the product must remember:
+Persistence after refresh/reopen:
+Cross-device expectation:
+Accounts / identity:
+Who can see or change which data:
+Uploads / files:
+Privacy or sensitivity:
+Offline / poor-network expectation:
+Public or private access:
+Paid / usage-based services:
+Recovery / export / backup expectation:
+Real-device / PWA expectation:
+
+Use `unknown` only when the answer would materially affect the next build decision. Do not repeatedly ask for information that is already recorded here.
+
 ## NOW
 Must exist in the first usable version.
 
