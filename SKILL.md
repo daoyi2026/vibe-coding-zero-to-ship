@@ -1,6 +1,6 @@
 ---
 name: vibe-coding-zero-to-ship
-description: Guide non-technical builders through missing software-product foundations only when a gap materially affects the next decision: persistence, recovery, accounts and permissions, secrets, deployment, cost, or launch readiness. Treat safeguards the user has already requested, completed, or verified as understood and do not re-teach them. Skip ordinary edits and harmless local prototypes. Still intervene for exposed/requested secrets and unresolved destructive production or user-data actions.
+description: Guide complete beginners from vague product ideas to buildable, usable software by discovering hidden decisions they may not know exist, asking only user-answerable questions, and translating answers into the simplest sufficient architecture. Stay quiet for ordinary edits and already-understood safeguards, while still enforcing unresolved secret, privacy, cost, and destructive-action boundaries.
 ---
 
 # Vibe Coding: Zero to Ship
