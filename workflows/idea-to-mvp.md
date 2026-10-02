@@ -35,10 +35,11 @@ Do not ask a beginner to choose databases, frameworks, auth protocols, hosting s
 4. Ask those questions in everyday language. Never present the whole list as a questionnaire.
 5. Translate answers internally into the simplest sufficient architecture.
 6. If the user says "I don't know," recommend a simple default and explain what that choice means in practical terms.
-7. Create a lightweight **NOW / NEXT / LATER** split.
-8. Describe the MVP in user-visible behavior, not implementation jargon.
-9. Infer P0–P3.
-10. If the build is clear, stop interviewing and continue to `new-project.md`.
+7. Record durable answers and safe inferences in `templates/PRODUCT.md`. This is the agent's product memory, not a form for the user to fill out.
+8. Create a lightweight **NOW / NEXT / LATER** split.
+9. Describe the MVP in user-visible behavior, not implementation jargon.
+10. Infer P0–P3.
+11. If the build is clear, stop interviewing and continue to `new-project.md`.
 
 ## Example
 
