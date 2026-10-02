@@ -30,9 +30,13 @@ Only check states relevant to the product; do not create ceremony for a tiny pro
 - If an installable/PWA-like experience is expected, does installation, relaunch, refresh, and offline/poor-network behavior match the promise?
 - If important data exists, can the user recover or export it at the level appropriate to the project?
 
-## By project level
+## Completion ladder
 
-- **P0:** core requested behavior and no obvious crash may be enough.
-- **P1:** add persistence, basic failure handling, recovery, and intended deployment.
-- **P2:** add account states, authorization, user-data isolation, privacy-related behavior.
-- **P3:** add payment/billing failure, operational monitoring, backup/recovery, and higher security scrutiny.
+"Done" changes with the product stage. Do not silently upgrade a project to a higher stage, and do not call a lower-stage result complete when the user's intended experience requires more.
+
+- **P0 — Experiment complete:** the requested idea works well enough to try, with no obvious crash. Persistence, accounts, deployment, and production process are optional unless the experiment itself needs them.
+- **P1 — Personal product complete:** the owner can reliably use it in the intended environment; expected data persists; relevant failure states work; intended devices are usable; there is a practical recovery path; deployment exists if remote access is part of the goal.
+- **P2 — Shared product complete:** P1 plus real-user identity when needed, enforced authorization/data isolation, privacy-aware handling, account/file lifecycle, and end-to-end testing with multiple identities where relevant.
+- **P3 — Production/sensitive product complete:** P2 plus proportional cost controls, operational visibility, backup/restore, higher security review, and ownership of critical services/accounts.
+
+Use the **lowest stage that matches the user's real intended audience and consequences**.
