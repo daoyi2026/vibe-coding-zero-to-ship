@@ -25,7 +25,10 @@ Only check states relevant to the product; do not create ceremony for a tiny pro
 - Does a failure preserve useful input and explain what happened?
 - Can destructive actions be understood and recovered from when appropriate?
 - Would a first-time user know what to do?
-- If phones are expected, are controls readable and usable without hover?
+- If phones are expected, are controls readable, touch-friendly, and usable without hover?
+- Has the product been checked at the device sizes the user actually expects?
+- If an installable/PWA-like experience is expected, does installation, relaunch, refresh, and offline/poor-network behavior match the promise?
+- If important data exists, can the user recover or export it at the level appropriate to the project?
 
 ## By project level
 
