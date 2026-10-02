@@ -1,8 +1,8 @@
-# Beginner Unknown-Unknowns Benchmark
+# Beginner Unknown-Unknowns Smoke Set
 
 Version: v0.1
 
-This benchmark tests the part of the skill that matters most for a complete beginner:
+This 12-case smoke set quickly checks the part of the skill that matters most for a complete beginner:
 
 > Can the agent notice software decisions the user does not know exist, turn them into questions the user can answer, and stop asking once the build is clear?
 
