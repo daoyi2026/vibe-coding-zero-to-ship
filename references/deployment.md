@@ -20,6 +20,8 @@ Hosting is where the product runs. A domain is a readable address. DNS connects 
 
 ## Before deployment, determine
 
+- Which devices and browsers matter for the intended experience?
+- Is the product meant to be opened in a browser, installed like a PWA, or both?
 - Who should be able to access it?
 - Is it intentionally public?
 - Does it have server-side functionality?
@@ -35,6 +37,8 @@ Verify the real deployed URL, not only localhost:
 - assets and API requests succeed;
 - persistent data reads/writes correctly;
 - authentication works when relevant;
-- mobile behavior works when relevant.
+- mobile behavior works on the intended form factors when relevant;
+- install/relaunch behavior works when a PWA-like experience is promised;
+- offline or poor-network behavior matches what was promised, if relevant.
 
 A successful deployment means **online**, not automatically **complete** or **secure**.
