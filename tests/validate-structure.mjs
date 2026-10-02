@@ -230,6 +230,53 @@ if (!existsSync(beginnerDiscoveryPath)) {
   console.log("Beginner discovery scenarios:", scenarioMatches.length);
 }
 
+
+const beginnerFoundationsPath = path.join(root, "tests", "beginner-foundations-60.md");
+if (!existsSync(beginnerFoundationsPath)) {
+  fail("tests/beginner-foundations-60.md is missing.");
+} else {
+  const text = readFileSync(beginnerFoundationsPath, "utf8");
+  const discovery = text.match(/^## D\d{2} — /gm) || [];
+  const translation = text.match(/^## T\d{2} — /gm) || [];
+  const restraint = text.match(/^## R\d{2} — /gm) || [];
+  const english = text.match(/^## [DTR]\d{2} — English$/gm) || [];
+  const chinese = text.match(/^## [DTR]\d{2} — 中文$/gm) || [];
+
+  if (discovery.length !== 20) {
+    fail("beginner-foundations-60.md should contain 20 discovery cases; found " + discovery.length);
+  }
+  if (translation.length !== 20) {
+    fail("beginner-foundations-60.md should contain 20 translation cases; found " + translation.length);
+  }
+  if (restraint.length !== 20) {
+    fail("beginner-foundations-60.md should contain 20 restraint cases; found " + restraint.length);
+  }
+  if (english.length !== 30 || chinese.length !== 30) {
+    fail("beginner-foundations-60.md should contain 30 English and 30 Chinese cases.");
+  }
+
+  for (const required of ["D01", "D20", "T01", "T20", "R01", "R20"]) {
+    if (!text.includes("## " + required + " — ")) {
+      fail("beginner-foundations-60.md is missing required case " + required);
+    }
+  }
+
+  console.log(
+    "Beginner foundations cases:",
+    discovery.length + translation.length + restraint.length,
+    "discovery:",
+    discovery.length,
+    "translation:",
+    translation.length,
+    "restraint:",
+    restraint.length,
+    "en:",
+    english.length,
+    "zh:",
+    chinese.length
+  );
+}
+
 const secretPatterns = [
   ["OpenAI-style key", /\bsk-[A-Za-z0-9_-]{20,}\b/g],
   ["GitHub classic token", /\bghp_[A-Za-z0-9]{20,}\b/g],
