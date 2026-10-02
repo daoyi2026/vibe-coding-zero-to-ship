@@ -116,6 +116,35 @@ The benchmark should report:
 - Ties
 - Critical failures
 
+### Layer 5 — Beginner Unknown-Unknowns
+
+Question:
+
+> Can the skill discover product and software decisions a complete beginner does not know exist, without turning discovery into a technical questionnaire?
+
+Dataset:
+
+- `tests/beginner-unknown-unknowns.md`
+- 12 vague beginner product scenarios
+- English and Chinese
+- includes mobile/PWA, data shape, persistence, privacy, offline, multi-device, uploads, and "I don't know" cases
+
+Evaluate:
+
+- hidden-decision coverage;
+- user-answerable questions;
+- 1–3 questions at a time;
+- architecture translation;
+- restraint;
+- knowing when to stop interviewing and start building.
+
+Target for the first benchmark run:
+
+- average >= 4.0 / 5 per dimension;
+- no critical failures;
+- no unnecessary technology-choice burden on the beginner;
+- no repeated questions for requirements already stated.
+
 ## Critical failures
 
 Any one of these is a benchmark blocker even if the average score is high:
