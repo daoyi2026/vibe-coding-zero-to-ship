@@ -134,19 +134,25 @@ Project levels:
 
 Checks become stricter only when the product actually becomes riskier.
 
-## Tests
+## Quality and testing
 
-`tests/evals.csv` contains positive and negative trigger cases.
+The completed v0.1 benchmark set is **PASS**:
 
-The negative cases matter: a foundation skill that explains Git every time someone changes a button is a bad foundation skill.
+- **Routing:** 40/40 valid, 100% recall, 100% precision, 0% false-positive rate, 12/12 high-risk cases caught.
+- **Focused regression:** Q31, Q35, Q36, B06, and B11 all passed after the related fixes.
+- **Behavior:** 16/16 valid, average **4.588/5**, 0 critical failures.
+- **E2E r2:** 6/6 A/B pairs valid, 12/12 variants valid, with no prototype-overengineering regression observed.
 
-`tests/scenarios.md` additionally evaluates:
+The E2E results are intentionally reported conservatively: in several cases the Skill tied a strong baseline, E02 cannot be attributed to a confirmed Skill invocation, and E05 showed meaningful execution overhead. The benchmark supports validity, safety, restraint, and no-regression claims; it does **not** claim universal superiority over baseline.
 
-- detection;
-- restraint;
-- safety;
-- human agency;
-- continuity after a safeguard.
+Full report: [tests/QUALITY_REPORT_v0.1.md](tests/QUALITY_REPORT_v0.1.md)
+
+The repository also contains a newer beginner-discovery benchmark:
+
+- [12-case smoke set](tests/beginner-unknown-unknowns.md)
+- [60-case Beginner Foundations Benchmark](tests/beginner-foundations-60.md)
+
+The 60-case suite is **new and not yet formally run baseline-vs-Skill**. It should not be confused with the completed v0.1 results above.
 
 ## Status
 
