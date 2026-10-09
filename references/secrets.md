@@ -1,33 +1,26 @@
 # Secrets
 
-A secret should be treated like a password.
+Treat a secret like a password that controls money or data: API keys, access tokens, passwords, private keys, database credentials, service-role keys, OAuth client secrets, webhook secrets.
 
-Examples:
-- API keys;
-- access tokens;
-- passwords;
-- private keys;
-- database credentials;
-- service-role credentials;
-- OAuth client secrets;
-- webhook secrets.
+Read this file whenever one appears, even if the user seems experienced.
 
 ## Rules
 
-- Do not ask the user to paste a secret into chat when avoidable.
-- Prefer provider dashboards, environment variables, or platform secret stores.
-- Do not hard-code secrets in client-visible source, static HTML, public repositories, or committed config.
-- If using a local `.env`, ensure it is excluded from Git.
-- An environment variable bundled into frontend code is not automatically secret. Server-only credentials must remain server-side.
-- Before public publishing/deployment, scan relevant files/history for credentials and private config.
-- Watch screenshots, logs, stack traces, and terminal output too.
+- Don't ask the user to paste a secret into chat when a safer path exists. Have them put it in a provider dashboard, a platform's secret settings, or a local `.env` file.
+- Never hard-code secrets in source, HTML, committed config or public repositories.
+- A local `.env` must be listed in `.gitignore` before the first commit. `guards/install-guards.mjs` does this.
+- **Anything shipped to the browser is public.** Environment variables bundled into front-end code are visible to every visitor. Server-only credentials stay on the server; the browser calls your server, and the server calls the paid API.
+- Some keys are meant to be public: the "publishable" or "anon" keys of hosted backends. They are safe **only** when database rules restrict what they can do. A "service role", "secret" or "admin" key is never public.
+- Watch screenshots, logs, error messages and terminal output too.
+- Before any push or deployment, run `guards/secret-scan.mjs` (include `--history` before the first push to a new remote).
 
-## If exposure already happened
+## If a secret was exposed
 
-Deleting the visible string is not enough. Treat the credential as compromised:
-1. revoke or rotate it;
-2. replace it securely;
-3. update the application;
-4. clean repository history when appropriate.
+Removing the line is not enough: Git history, caches, forks and bots may already have it. Treat it as compromised:
 
-If a user pastes a real-looking credential, immediately tell them not to reuse it and recommend rotation rather than continuing to propagate it.
+1. revoke or rotate it at the provider, which only the user can do in their account; tell them exactly where
+2. put the new one in safe storage
+3. update the app
+4. clean Git history if the repository is or will become public
+
+If a user pastes a real-looking credential into chat, tell them right away to rotate it, and don't repeat it back.

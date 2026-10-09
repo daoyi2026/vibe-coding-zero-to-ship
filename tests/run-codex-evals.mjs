@@ -52,7 +52,7 @@ function parseCsv(text) {
 function copySkill(targetDir) {
   mkdirSync(targetDir, { recursive: true });
   cpSync(path.join(repoRoot, "SKILL.md"), path.join(targetDir, "SKILL.md"));
-  for (const dir of ["references", "workflows", "checklists", "templates"]) {
+  for (const dir of ["references", "checklists", "templates", "guards"]) {
     cpSync(path.join(repoRoot, dir), path.join(targetDir, dir), { recursive: true });
   }
 }
@@ -76,9 +76,9 @@ function detectSkillRead(events) {
     ".codex/skills/vibe-coding-zero-to-ship",
     "vibe-coding-zero-to-ship/SKILL.md",
     "Vibe Coding: Zero to Ship",
-    "references/beginner-mode.md",
-    "references/data-basics.md",
-    "workflows/idea-to-mvp.md"
+    "references/should-we-build.md",
+    "references/discovery.md",
+    "references/data-and-users.md"
   ].filter((needle) => haystack.includes(needle));
   return { triggered: evidence.length > 0, evidence };
 }

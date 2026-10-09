@@ -120,7 +120,7 @@ if [[ -e "$TARGET" ]]; then
 fi
 
 mkdir -p "$TARGET"
-for item in SKILL.md references workflows checklists templates; do
+for item in SKILL.md references checklists templates guards; do
   if [[ -e "$SOURCE/$item" ]]; then
     cp -R "$SOURCE/$item" "$TARGET/"
   fi

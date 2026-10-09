@@ -110,7 +110,7 @@ if (!existsSync(skillPath)) {
     fail("SKILL.md exceeds 256 KiB.");
   }
 
-  const matches = text.matchAll(/\x60((?:references|workflows|checklists|templates)\/[^\x60]+)\x60/g);
+  const matches = text.matchAll(/\x60((?:references|checklists|templates|guards)\/[^\x60]+)\x60/g);
   const refs = new Set();
   for (const match of matches) refs.add(match[1]);
   for (const ref of refs) {

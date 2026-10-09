@@ -26,6 +26,12 @@ jobs:
       - name: Validate skill bundle
         run: node tests/validate-structure.mjs
 
+      - name: Test guard scripts
+        run: node --test tests/guards.test.mjs
+
+      - name: Scan this repository with its own secret guard
+        run: node guards/secret-scan.mjs .
+
       - name: Validate benchmark scorer syntax
         run: node --check tests/score-quality-routing.mjs
 
@@ -41,6 +47,7 @@ jobs:
 
           HOME="$temp_home" VIBE_SKILL_SOURCE_DIR="$PWD" bash scripts/install.sh
           test -f "$temp_home/.codex/skills/vibe-coding-zero-to-ship/SKILL.md"
+          test -f "$temp_home/.codex/skills/vibe-coding-zero-to-ship/guards/secret-scan.mjs"
 
           set +e
           HOME="$temp_home" VIBE_SKILL_SOURCE_DIR="$PWD" bash scripts/install.sh
