@@ -66,12 +66,12 @@ Before replacing anything, it creates a timestamped backup next to the existing 
 └── vibe-coding-zero-to-ship/
     ├── SKILL.md
     ├── references/
-    ├── workflows/
     ├── checklists/
-    └── templates/
+    ├── templates/
+    └── guards/
 ```
 
-Only those runtime files are needed. The `tests/` and `.github/` directories are for development of the skill itself.
+Only those runtime files are needed. The `guards/` scripts need Node.js 18 or newer on the machine where the agent runs. The `tests/` and `.github/` directories are for development of the skill itself.
 
 ## Safety notes
 

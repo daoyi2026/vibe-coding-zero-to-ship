@@ -21,17 +21,26 @@ Each prompt gets its own scratch project. Codex is launched with a temporary `CO
 
 ## Run
 
-From the repository root:
+From the repository root. Each dataset is scored and reported **separately**:
 
 ```bash
-node tests/run-codex-evals.mjs
+# v0.1 regression set (40 cases) — keep it unchanged so results stay comparable with v0.1
+node tests/run-codex-evals.mjs --dataset tests/quality-routing.csv --out routing-v0.1-set.csv
+node tests/score-quality-routing.mjs routing-v0.1-set.csv
+
+# v0.2 extension (16 cases): new moments (vague idea, push, after going online, fix loop)
+# and new negatives (experienced developers, verified push guards, local toys, trivial resumes)
+node tests/run-codex-evals.mjs --dataset tests/quality-routing-v0.2.csv --out routing-v0.2-set.csv
+node tests/score-quality-routing.mjs routing-v0.2-set.csv
 ```
 
-Run only the three important negative controls:
+Without `--dataset` the runner uses the original 15-case `tests/evals.csv`. Pass case ids to run a subset:
 
 ```bash
-node tests/run-codex-evals.mjs 12 13 14
+node tests/run-codex-evals.mjs --dataset tests/quality-routing.csv Q31 Q35 Q36
 ```
+
+Routing only shows whether the skill was loaded. Whether the agent then ran the guards and checks is measured by the behavior cases in `tests/v0.2-smoke.md`.
 
 ## Authentication and Plus accounts
 

@@ -8,7 +8,19 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "..");
-const evalCsv = path.join(here, "evals.csv");
+// Options: --dataset <csv> (default tests/evals.csv), --out <csv> (scorer-ready results), then optional case ids.
+const cliArgs = process.argv.slice(2);
+function takeOption(name) {
+  const i = cliArgs.indexOf(name);
+  if (i < 0) return null;
+  const value = cliArgs[i + 1];
+  if (!value || value.startsWith("--")) throw new Error(name + " needs a value");
+  cliArgs.splice(i, 2);
+  return value;
+}
+const datasetOption = takeOption("--dataset");
+const outOption = takeOption("--out");
+const evalCsv = datasetOption ? path.resolve(datasetOption) : path.join(here, "evals.csv");
 
 function parseCsv(text) {
   const rows = [];
@@ -52,7 +64,7 @@ function parseCsv(text) {
 function copySkill(targetDir) {
   mkdirSync(targetDir, { recursive: true });
   cpSync(path.join(repoRoot, "SKILL.md"), path.join(targetDir, "SKILL.md"));
-  for (const dir of ["references", "workflows", "checklists", "templates"]) {
+  for (const dir of ["references", "checklists", "templates", "guards"]) {
     cpSync(path.join(repoRoot, dir), path.join(targetDir, dir), { recursive: true });
   }
 }
@@ -76,9 +88,9 @@ function detectSkillRead(events) {
     ".codex/skills/vibe-coding-zero-to-ship",
     "vibe-coding-zero-to-ship/SKILL.md",
     "Vibe Coding: Zero to Ship",
-    "references/beginner-mode.md",
-    "references/data-basics.md",
-    "workflows/idea-to-mvp.md"
+    "references/should-we-build.md",
+    "references/discovery.md",
+    "references/data-and-users.md"
   ].filter((needle) => haystack.includes(needle));
   return { triggered: evidence.length > 0, evidence };
 }
@@ -137,7 +149,7 @@ function main() {
   }
 
   const cases = parseCsv(readFileSync(evalCsv, "utf8"));
-  const selectedIds = new Set(process.argv.slice(2));
+  const selectedIds = new Set(cliArgs);
   const selected = selectedIds.size
     ? cases.filter((testCase) => selectedIds.has(testCase.id))
     : cases;
@@ -146,6 +158,7 @@ function main() {
   const codexHome = path.join(root, "codex-home");
   mkdirSync(codexHome, { recursive: true });
 
+  console.log("Dataset: " + path.relative(process.cwd(), evalCsv) + " (" + selected.length + " cases)");
   console.log("Codex: " + codexProbe.stdout.trim());
   console.log("Isolated root: " + root);
   console.log("Active projects and ~/.codex are not modified.");
@@ -168,6 +181,7 @@ function main() {
 
     const summary = {
       codexVersion: codexProbe.stdout.trim(),
+      dataset: path.relative(here, evalCsv),
       total: results.length,
       passed: results.filter((r) => r.pass).length,
       failed: results.filter((r) => !r.pass).length,
@@ -180,6 +194,14 @@ function main() {
         evidence: r.evidence
       }))
     };
+
+    const riskById = Object.fromEntries(selected.map((c) => [c.id, c.risk || ""]));
+    const csvLines = ["id,should_trigger,detected,risk"].concat(
+      results.map((r) => [r.id, r.expected, r.detected, riskById[r.id]].join(","))
+    );
+    const csvPath = outOption ? path.resolve(outOption) : path.join(root, "results.csv");
+    writeFileSync(csvPath, csvLines.join("\n") + "\n", "utf8");
+    console.log("Results CSV (for tests/score-quality-routing.mjs): " + csvPath);
 
     const summaryPath = path.join(root, "summary.json");
     writeFileSync(summaryPath, JSON.stringify(summary, null, 2), "utf8");

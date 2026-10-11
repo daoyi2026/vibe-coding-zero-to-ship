@@ -4,163 +4,86 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Release: v0.1.0](https://img.shields.io/badge/release-v0.1.0-blue)](https://github.com/daoyi2026/vibe-coding-zero-to-ship/releases/tag/v0.1.0)
 
-A beginner foundation layer for AI-assisted product building.
+An agent skill that helps people with **no programming background** build real software with AI, and keeps them safe while they do it.
 
-This project is for people who can describe a product idea but may not yet know the software-development concepts that advanced coding agents often assume: Git, data persistence, databases, authentication, secrets, deployment, public/private visibility, product completeness, cost, and maintenance.
+## Who it is for
 
-## Why this exists
+A capable adult (say, a university graduate) who has never programmed. They know what they want, but not:
 
-Advanced coding skills often start **after** the beginner knowledge gap:
+- whether it is worth building at all, or whether an existing tool already does it;
+- what software needs that they never thought to ask about (where data lives, who can see it, what happens on a new phone);
+- what can go wrong: a key pushed to GitHub, a database anyone can read, an AI feature a bot can run up a bill on;
+- how to tell whether the AI's "done" is actually done.
 
-- “Use Git” — but the user may not know why version history matters.
-- “Add a database” — but the user may not know where app data lives.
-- “Deploy it” — but the user may not know the difference between localhost and a public product.
-- “Store the API key in env” — but the user may not know an API key is effectively a password.
-- “Add auth” — but the user may not know login and data permissions are different problems.
+They will trust whatever the agent says. Modern coding agents *know* most of the safety rules, but they don't *apply* them every time. In our own tests, a strong agent building a booking app let anyone view and cancel other people's bookings by typing a phone number. This skill exists for those moments.
 
-This skill fills that missing foundation without turning product building into a programming course.
+## What it does
 
-## Core idea
+1. **Should this be built?** Checks for existing tools, real-world blockers (filing, licences, platform approval, payments), and the lightest form that fits (spreadsheet, page, home-screen app, mini program, store app). Building stays the user's choice.
+2. **Asks only experience questions,** at most three at a time, then stops asking and builds. The user never has to choose a framework or database.
+3. **Installs guards instead of relying on memory.** Dependency-free scripts:
+   - `guards/install-guards.mjs` adds safe `.gitignore` entries and a Git pre-commit hook that **blocks commits containing secrets**;
+   - `guards/secret-scan.mjs` scans files and full Git history before a push;
+   - `guards/live-check.mjs` looks at a deployed site like an outsider would: public `.env`/`.git`, keys in front-end code, debug pages, unauthenticated admin APIs, and **database tables readable with the public key** (Supabase, Firebase).
+4. **Proves it works.** Before handing over: runs it, tries the obvious failures, and for anything with other people's data tries to get in as a second user, signed out, and by swapping IDs. Then reports what was checked, what wasn't, and what the user should try.
+5. **Gets it online safely.** Managed hosting by default, development features off, spending limits, accounts in the user's name, and a minimum hardening list if a server is unavoidable.
+6. **Catches them when stuck.** Save points, a stop rule for fix-break-fix loops, and a `PROJECT.md` so a new session picks up where the last one left off.
 
-> Never assume the user knows what they need to know.
-
-And equally:
-
-> If the missing knowledge does not matter to the current decision, stay silent.
-
-## What the skill does
-
-It helps an AI coding agent:
-
-- detect foundational gaps the user may not know to ask about;
-- explain only the concept needed for the next decision;
-- handle routine technical work instead of making the user become a programmer;
-- surface consequential decisions around money, privacy, public exposure, credentials, and irreversible actions;
-- prefer the simplest architecture that satisfies the current need;
-- route into focused references, workflows, and safety checklists only when relevant;
-- keep building after the safeguard instead of stopping at a warning.
-
-It is **not** a programming course and should not interrupt harmless creative work with unnecessary explanations.
-
-## Example
-
-A beginner says:
-
-> I want to make a diary app.
-
-A typical coding agent may immediately choose a stack.
-
-This skill first notices the hidden product questions that actually change the build:
-
-- Should entries still exist after the browser closes?
-- Should they appear on another device?
-- Is this only for one person or for multiple users?
-- If multiple users exist, who can see whose entries?
-- Is the deployed app public or access-controlled?
-
-It asks only the questions that matter **now**, then continues the build.
+It stays quiet for routine edits, for throwaway prototypes, and when the user has already handled a safeguard.
 
 ## Structure
 
-- `SKILL.md` — minimal router and permanent rules
-- `references/` — on-demand foundational knowledge
-- `workflows/` — beginner product-building flows
-- `checklists/` — safety and launch gates
-- `templates/` — lightweight product/project state templates
-- `tests/` — trigger, behavior, and anti-annoyance scenarios
-
-## Install in Codex
-
-Codex can discover skills from a repo-scoped or user-scoped skills directory.
-
-### Repo-scoped
-
-Clone this repository into:
-
 ```text
-.codex/skills/vibe-coding-zero-to-ship/
+SKILL.md                 router and permanent rules (~100 lines)
+references/              read only at the matching moment
+  should-we-build.md     existing tools, real-world blockers, product form
+  discovery.md           experience questions and when to stop asking
+  data-and-users.md      storage, identity vs permission, personal data, uploads
+  secrets.md             keys, public vs secret keys, what to do after a leak
+  verify-it-works.md     run it, break it, try to get in from outside, report honestly
+  going-online.md        managed hosting, exposure, cost, ownership, server hardening
+  stuck-and-recovery.md  save points, fix loops, problem reports, resuming sessions
+checklists/              before-handoff, before-push, going-online, destructive-action
+guards/                  zero-dependency Node scripts (Node 18+)
+templates/PROJECT.md     the product's memory inside the user's project
+tests/                   benchmarks and guard tests (not installed)
 ```
 
-### User-scoped
+## Install
 
-Clone this repository into:
+See [INSTALL.md](INSTALL.md). Quick version:
 
-```text
-~/.codex/skills/vibe-coding-zero-to-ship/
+```bash
+bash scripts/install.sh                   # Codex: ~/.codex/skills
+bash scripts/install.sh --target agents   # ~/.agents/skills
+bash scripts/install.sh --target cursor   # ~/.cursor/skills
 ```
 
-The folder should contain this repository's `SKILL.md` at its root.
+For Claude Code, copy the runtime folders (`SKILL.md`, `references/`, `checklists/`, `templates/`, `guards/`) into `~/.claude/skills/vibe-coding-zero-to-ship/`.
 
-Example:
+The guards can also be used on their own:
 
-```text
-~/.codex/skills/
-└── vibe-coding-zero-to-ship/
-    ├── SKILL.md
-    ├── references/
-    ├── workflows/
-    ├── checklists/
-    ├── templates/
-    └── tests/
+```bash
+node guards/install-guards.mjs path/to/project --init
+node guards/secret-scan.mjs path/to/project --history
+node guards/live-check.mjs https://your-site.example
 ```
-
-Other Agent Skills-compatible hosts can use the same bundle if they support a `SKILL.md` manifest and supporting files; installation paths vary by host.
-
-## Design principles
-
-1. Never assume technical knowledge.
-2. Do not lecture.
-3. Concept before jargon.
-4. Agent handles routine technical complexity.
-5. Human controls consequential decisions.
-6. Use the simplest sufficient architecture.
-7. A working UI is not automatically a complete product.
-8. Detect important questions the user does not know to ask.
-9. Stay quiet when foundations are irrelevant.
-10. Protect experimentation: a harmless prototype should not be buried under production ceremony.
-
-## Project and user levels
-
-The skill separates **user experience level** from **project risk**.
-
-A first-time builder can be making a serious shared product, and a technical user can be making a harmless local experiment.
-
-Project levels:
-
-- **P0** — local experiment
-- **P1** — personal product
-- **P2** — shared product
-- **P3** — commercial or sensitive product
-
-Checks become stricter only when the product actually becomes riskier.
 
 ## Quality and testing
 
-The completed v0.1 benchmark set is **PASS**:
+**Guards:** `node --test tests/guards.test.mjs` covers detection, placeholders, history scanning, the pre-commit hook blocking a real commit, and the live check against local test servers. These run in CI, and CI also scans this repository with its own secret guard.
 
-- **Routing:** 40/40 valid, 100% recall, 100% precision, 0% false-positive rate, 12/12 high-risk cases caught.
-- **Focused regression:** Q31, Q35, Q36, B06, and B11 all passed after the related fixes.
-- **Behavior:** 16/16 valid, average **4.588/5**, 0 critical failures.
-- **E2E r2:** 6/6 A/B pairs valid, 12/12 variants valid, with no prototype-overengineering regression observed.
+**v0.1 results** (routing 40/40, behavior 4.588/5, E2E r2 valid with mostly ties against a strong baseline) are in [tests/QUALITY_REPORT_v0.1.md](tests/QUALITY_REPORT_v0.1.md). They were measured on the **v0.1 skill text**. v0.2 rewrote the skill, so those numbers do not carry over until re-run.
 
-The E2E results are intentionally reported conservatively: in several cases the Skill tied a strong baseline, E02 cannot be attributed to a confirmed Skill invocation, and E05 showed meaningful execution overhead. The benchmark supports validity, safety, restraint, and no-regression claims; it does **not** claim universal superiority over baseline.
-
-Full report: [tests/QUALITY_REPORT_v0.1.md](tests/QUALITY_REPORT_v0.1.md)
-
-The repository also contains a newer beginner-discovery benchmark:
-
-- [12-case smoke set](tests/beginner-unknown-unknowns.md)
-- [60-case Beginner Foundations Benchmark](tests/beginner-foundations-60.md)
-
-The 60-case suite is **new and not yet formally run baseline-vs-Skill**. It should not be confused with the completed v0.1 results above.
+**Not yet run on v0.2:** the 40-case routing set, the new [16-case routing extension](tests/quality-routing-v0.2.csv) for v0.2's moments, the [v0.2 smoke set](tests/v0.2-smoke.md), and the [60-case beginner benchmark](tests/beginner-foundations-60.md), baseline vs skill. How to run them: [tests/README.md](tests/README.md).
 
 ## Status
 
-**v0.1.0 is now publicly released.** The first release focuses on beginner foundations, safe routing, recovery, and a lightweight installation/testing workflow.
+v0.2 is a restructure in progress on top of v0.1.0. See [CHANGELOG.md](CHANGELOG.md).
 
 ## Influences
 
-See `ACKNOWLEDGEMENTS.md` for projects and public workflows that informed the design.
+See `ACKNOWLEDGEMENTS.md`.
 
 ## License
 
