@@ -17,6 +17,8 @@ Restructure around the full beginner journey, and safety that does not depend on
 - `guards/`: zero-dependency scripts: secret scanner (files, staged, history), pre-commit hook installer, live-site self-check.
 - `checklists/before-handoff.md`, `checklists/before-push.md`, `checklists/going-online.md`, tied to moments rather than topics.
 - `tests/guards.test.mjs` (in CI) and `tests/v0.2-smoke.md`.
+- `tests/quality-routing-v0.2.csv`: 16 routing cases for v0.2's moments and new negatives, reported separately from the unchanged v0.1 set of 40.
+- `tests/run-codex-evals.mjs` accepts `--dataset` and `--out`, and writes a results CSV the scorer can read.
 
 ### Changed
 

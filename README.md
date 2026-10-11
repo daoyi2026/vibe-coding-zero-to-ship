@@ -75,7 +75,7 @@ node guards/live-check.mjs https://your-site.example
 
 **v0.1 results** (routing 40/40, behavior 4.588/5, E2E r2 valid with mostly ties against a strong baseline) are in [tests/QUALITY_REPORT_v0.1.md](tests/QUALITY_REPORT_v0.1.md). They were measured on the **v0.1 skill text**. v0.2 rewrote the skill, so those numbers do not carry over until re-run.
 
-**Not yet run on v0.2:** the 40-case routing set, the [v0.2 smoke set](tests/v0.2-smoke.md), and the [60-case beginner benchmark](tests/beginner-foundations-60.md), baseline vs skill.
+**Not yet run on v0.2:** the 40-case routing set, the new [16-case routing extension](tests/quality-routing-v0.2.csv) for v0.2's moments, the [v0.2 smoke set](tests/v0.2-smoke.md), and the [60-case beginner benchmark](tests/beginner-foundations-60.md), baseline vs skill. How to run them: [tests/README.md](tests/README.md).
 
 ## Status
 

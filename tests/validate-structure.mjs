@@ -213,6 +213,38 @@ if (!existsSync(qualityRoutingPath)) {
 }
 
 
+const routingV2Path = path.join(root, "tests", "quality-routing-v0.2.csv");
+if (!existsSync(routingV2Path)) {
+  fail("tests/quality-routing-v0.2.csv is missing.");
+} else {
+  const rows = parseCsv(readFileSync(routingV2Path, "utf8"));
+  const header = rows[0] || [];
+  const body = rows.slice(1);
+  const col = (name) => header.indexOf(name);
+  if (["id", "language", "risk", "should_trigger", "prompt"].some((name) => col(name) < 0)) {
+    fail("quality-routing-v0.2.csv is missing required columns.");
+  } else {
+    const count = (name, value) => body.filter((row) => row[col(name)] === value).length;
+    const ids = new Set(body.map((row) => row[col("id")]));
+    if (body.length !== 16) fail("quality-routing-v0.2.csv should contain 16 cases; found " + body.length);
+    if (count("should_trigger", "true") !== 8 || count("should_trigger", "false") !== 8) {
+      fail("quality-routing-v0.2.csv should contain 8 positive and 8 negative cases.");
+    }
+    if (count("language", "en") !== 8 || count("language", "zh") !== 8) {
+      fail("quality-routing-v0.2.csv should contain 8 English and 8 Chinese cases.");
+    }
+    if (ids.size !== body.length) fail("quality-routing-v0.2.csv has duplicate ids.");
+    console.log(
+      "Routing v0.2 extension cases:", body.length,
+      "positive:", count("should_trigger", "true"),
+      "negative:", count("should_trigger", "false"),
+      "en:", count("language", "en"),
+      "zh:", count("language", "zh")
+    );
+  }
+}
+
+
 const beginnerDiscoveryPath = path.join(root, "tests", "beginner-unknown-unknowns.md");
 if (!existsSync(beginnerDiscoveryPath)) {
   fail("tests/beginner-unknown-unknowns.md is missing.");
