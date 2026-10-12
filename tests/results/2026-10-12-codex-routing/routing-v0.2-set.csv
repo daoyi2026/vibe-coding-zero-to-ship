@@ -1,0 +1,17 @@
+id,should_trigger,detected,risk
+V01,true,true,P2
+V02,true,true,P2
+V03,true,true,P1
+V04,true,true,P1
+V05,true,true,P2
+V06,true,true,P2
+V07,true,true,P1
+V08,true,true,P1
+V09,false,true,P1
+V10,false,true,P1
+V11,false,false,P1
+V12,false,false,P1
+V13,false,true,P0
+V14,false,true,P0
+V15,false,true,P1
+V16,false,true,P1
